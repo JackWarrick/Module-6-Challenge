@@ -11,5 +11,5 @@ This repository contains HTML, CSS, and JAVASCRIPT files for a program that allo
 
 # Link to Application
 
-[Jack Warrick's daily scheduler program](https://jackwarrick.github.io/Module-5-Challenge/)
+[Jack Warrick's daily scheduler program](https://jackwarrick.github.io/Module-6-Challenge/)
 

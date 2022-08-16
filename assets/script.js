@@ -34,7 +34,7 @@ var currentDate = moment().format("MMMM Do YYYY");
 
 // THIS FUNCTION TAKES THE USERS INPUT OF CITY AND PUTS IT INTO THE REQUEST URL FOR THE API CALL AND GETS THE LAT AND LON OF THE CITY FOR LATER USE
     function getCity(city) {
-        var requestUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=88217165f47370f98dbdcf362aa489be';
+        var requestUrl = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=88217165f47370f98dbdcf362aa489be';
       
         fetch(requestUrl)
           .then(function (response) {
@@ -65,7 +65,7 @@ var currentDate = moment().format("MMMM Do YYYY");
       console.log(data)
 
       //SET WEATHER ICON URL IN LOCAL STORAGE
-      var weatherIcon = src='http://openweathermap.org/img/wn/' + data.current.weather[0].icon + '@2x.png';
+      var weatherIcon = src='https://openweathermap.org/img/wn/' + data.current.weather[0].icon + '@2x.png';
 
       localStorage.setItem('weatherIcon', weatherIcon); 
 

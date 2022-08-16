@@ -9,7 +9,7 @@ var searchBtn = $("#searchBoxBtn");
 var currentDate = moment().format("MMMM Do YYYY");
 
 
-
+//Need empty array to push local storage stuff instead of just one value each
 
 
 // THIS FUNCTION TAKES THE USERS CITY INPUT AND SAVES IT TO LOCAL STORAGE AND APPENDS BUTTONS TO THE PAGE
@@ -27,12 +27,14 @@ var currentDate = moment().format("MMMM Do YYYY");
 
         $('#cityBtns').append(cityBtn);
 
+        getCity(searchedCity);
+
         }
     );
 
 // THIS FUNCTION TAKES THE USERS INPUT OF CITY AND PUTS IT INTO THE REQUEST URL FOR THE API CALL AND GETS THE LAT AND LON OF THE CITY FOR LATER USE
-    function getCity() {
-        var requestUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + localStorage.getItem('city1') + '&limit=1&appid=88217165f47370f98dbdcf362aa489be';
+    function getCity(city) {
+        var requestUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=88217165f47370f98dbdcf362aa489be';
       
         fetch(requestUrl)
           .then(function (response) {
@@ -42,21 +44,18 @@ var currentDate = moment().format("MMMM Do YYYY");
             var enteredCityLat = data[0].lat; 
             var enteredCityLon = data[0].lon;
 
-            localStorage.setItem('cityLat', enteredCityLat); 
-            localStorage.setItem('cityLon', enteredCityLon); 
+            getCityData(enteredCityLat, enteredCityLon)
             
           });
       }
-      
-      searchBtn.on('click', getCity);
 
 
 
 
 // IN THIS FUNCTION WE GET THE WEATHER DATA OF THE SEARCHED CITY AND PUT IT ON THE PAGE
-    function getCityData() { 
+    function getCityData(lat, lon) { 
 
-    var weatherOfCityUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + localStorage.getItem('cityLat') +  '&lon=' + localStorage.getItem('cityLon')  + '&appid=88217165f47370f98dbdcf362aa489be';
+    var weatherOfCityUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat +  '&lon=' + lon  + '&appid=88217165f47370f98dbdcf362aa489be';
     
     fetch(weatherOfCityUrl)
     .then(function (response) {
@@ -95,6 +94,9 @@ var currentDate = moment().format("MMMM Do YYYY");
       currentDateCard.append(currentInfo);
 
       $("#cityWeatherCards").append(currentDateCard);
+    
+
+      //Do the five day forecast and then do the local storage stuff and use the local storage arrays to save it all in the buttons that display the old cards
 
       
 
@@ -103,14 +105,16 @@ var currentDate = moment().format("MMMM Do YYYY");
       // console.log(data.daily[i].feels_like.eve);
       // }
 
+      for (let i = 1; i < 6; i++) { // Get five values out of there  for five day forecast
+        console.log(data.daily[i].temp.max); // this works to get all of the temp maxes - do this for each condition
+        }
+
 
       // renderForecastCards(data)
 
 
     });
 }
-
-searchBtn.on('click', getCityData);
 
 
 
